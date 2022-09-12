@@ -27,7 +27,6 @@ a:visited {
 }
 
 #main-card {
-	/* background-color: #77756d; */
 	background-image: linear-gradient(to left, #eecd48, #8a8881);
 	font-size: 125%;
 	transition: transform 0.2s;
