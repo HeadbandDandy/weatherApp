@@ -36,17 +36,55 @@ let defaultCards = [
 //below contains the time/date function from moment
 let today = moment().format('M/DD/YYYY')
 
-
-//function needed to get coordinates
-
-
-
-
-
-
 // Below sets the local storage
+//local storage should be set before other functions 
 let searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
 
 let cityName;
+
+
+//function needed to get coordinates
+
+getCoordinates = () => {
+	let geocodingEndpoint = '/geo/1.0/direct?';
+	let apiParam = `q=${cityName}`;
+
+	// pulls location from geocode
+	fetch(`${apiUrl}${geocodingEndpoint}${apiParam}${apiKey}`)
+		.then(function (response) {
+			return response.json();
+		})
+		.then(function (data) {
+			fetchWeather(data);
+		})
+		.catch(function (error) {
+			alert('please enter a valid city name');
+		});
+};
+
+
+getWeather = (weatherData) => {
+	let latParam = weatherData[0].lat;
+	let lonParam = weatherData[0].lon;
+
+	// pulls weather based on coordinates function above
+	fetch(
+		`${weatherApiUrl}${oneCallEndpoint}lat=${latParam}&lon=${lonParam}&units=imperial${weatherApiKey}`
+	)
+		.then(function (response) {
+			return response.json();
+		})
+		.then(function (data) {
+			appendToSearchHistory(weatherData);
+			renderCurrentWeather(weatherData, data);
+			renderForecast(data);
+		});
+};
+
+
+
+
+
+
 
 
