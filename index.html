@@ -11,54 +11,123 @@
 
 </head>
 <body>
-<!--Jumbotron/Hero Section goes below-->
-    <div class="container">
-        <div class="jumbotron-fluid bg-secondary text-white text-center">
-            <div class="container">
-                <h1 class="display">WeatherApp</h1>
-            </div>
+    <header class="jumbotron jumbotron-fluid custom-jumbotron text-light">
+        <div class="container-fluid text-center">
+          <h1 class="display-4">Weather Watch</h1>
         </div>
-
-    </div>
-<!--Below contains section that allows user to search for the city/town-->
-<!--below also contains elements and ID's to format where Data from APi will go-->
-    <div class="row">
-        <div class="col-3 m-3 bg-info">
-            <h2 class="cityName">Search City/Town:</h2>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control-lg" id="inputName" aria-describedby="cityInput">
-                <div class="input-group-append">
-                    <button id="addCity" class="btn btn-outline-info bg-primary" type="button"><i class="fa-solid fa-magnifying-glass-location"></i></button>
+      </header>
+    
+      <div class="container-fluid weather-container">
+        <div class="row">
+    
+          <!--Below contains search card -->
+          <div class="col-12 col-sm-12 col-md-12 col-lg-3">
+            <div id="search-card" class="card px-4 py-4 bg-dark text-light">
+              <h2>Search for a City:</h2>
+    
+              <!-- below contain search form-->
+              <form class="border-bottom mb-2">
+                <input type="text" class="form-control mb-2" id="city-search" placeholder="Enter a City" autocomplete="off">
+                <button class="btn btn-primary btn-block mb-2" id="city-search-btn">Search</button>
+              </form>
+    
+              <!-- below should contain the section for search-buttons -->
+              <div id="search-buttons"></div>
+            </div>
+          </div>
+    
+          
+          <div class="col-12 col-md-12 col-lg-9">
+            <div class="row p-3 m-1">
+              <!-- below contains section displaying temp, weather, humidity, wind, & UV -->
+              <div id="main-card" class=" card col-12 text-light p-3">
+                <div class="row">
+                  <div class="col-12 col-lg-4 text-center p-4">
+                    <h2><span id="main-card-city"></span> <span id="main-card-date"></span></h2>
+                    <img id="main-card-icon">
+                  </div>
+                  <div class="col-12 col-lg-8 d-flex align-items-center justify-content-between">
+    
+                    <div class="container">
+                      <div class="row d-flex justify-content-around">
+                        <div class="main-text col-12 col-lg-2 text-center border rounded m-2 p-2">
+                          <p>Temp:</p>
+                          <span id="main-card-temp"></span>
+                        </div>
+                        <div class="main-text col-12 col-lg-2 text-center border rounded m-2 p-2">
+                          <p>Wind:</p>
+                          <span id="main-card-wind"></span>
+                        </div>
+                        <div class="main-text col-12 col-lg-2 text-center border rounded m-2 p-2">
+                          <p>Humidity:</p>
+                          <span id="main-card-humidity"></span>
+                        </div>
+                        <div class="main-text col-12 col-lg-2 align-self-center">
+                          <a href="https://www.epa.gov/sunsafety/uv-index-scale-0" target="_blank">
+                            <p>UVI: <span id="main-card-uv"></span></p>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+    
+                  </div>
                 </div>
+              </div>
             </div>
-        </div>
-    </div>
-    <!--below contains the cards where City/weather will be displayed-->
-    <div>
-        <div class="card" style="width: 15rem;">
-            <ul id="placeList" class="list-group list-group-flush">
-
-            </ul>
-        </div>
-
-    </div>
-<!--below contains the display for the weather of that specific day-->
-<!--below will contain the 5-Day forecast element for the city searched by the user as well-->
-    <div class="col-8 m-4">
-        <div class="row-12">
-            <div class="card">
-                <div id="weatherToday" class="card-body">
-
+            <!-- Forecast Cards displayed below -->
+    
+            <div class="container col-12 d-flex">
+              <div class="row d-flex justify-content-around m-1">
+                <h3 class="col-12">Next 5-Days! </h3>
+                <!-- DAY 1 -->
+                <div class="col-12 col-sm-12 col-md-3 col-lg-2 card text-light p-2 m-1 forecast-card">
+                  <h4 class="forecast-date"></h4>
+                  <img class="forecast-icon">
+                  <p>Temperature: <span class="forecast-temp"></span></p>
+                  <p>Wind: <span class="forecast-wind"></span></p>
+                  <p>Humidity: <span class="forecast-humidity"></span></p>
                 </div>
+    
+                <!-- DAY 2 -->
+                <div class="col-12 col-sm-12 col-md-3 col-lg-2 card text-light p-2 m-1 forecast-card">
+                  <h4 class="forecast-date"></h4>
+                  <img class="forecast-icon">
+                  <p>Temperature: <span class="forecast-temp"></span></p>
+                  <p>Wind: <span class="forecast-wind"></span></p>
+                  <p>Humidity: <span class="forecast-humidity"></span></p>
+                </div>
+    
+                <!-- DAY 3 -->
+                <div class="col-12 col-sm-12 col-md-3 col-lg-2 card text-light p-2 m-1 forecast-card">
+                  <h4 class="forecast-date"></h4>
+                  <img class="forecast-icon">
+                  <p>Temperature: <span class="forecast-temp"></span></p>
+                  <p>Wind: <span class="forecast-wind"></span></p>
+                  <p>Humidity: <span class="forecast-humidity"></span></p>
+                </div>
+    
+                <!-- DAY 4 -->
+                <div class="col-12 col-sm-12 col-md-3 col-lg-2 card text-light p-2 m-1 forecast-card">
+                  <h4 class="forecast-date"></h4>
+                  <img class="forecast-icon">
+                  <p>Temperature: <span class="forecast-temp"></span></p>
+                  <p>Wind: <span class="forecast-wind"></span></p>
+                  <p>Humidity: <span class="forecast-humidity"></span></p>
+                </div>
+    
+                <!-- DAY 5 -->
+                <div class="col-12 col-sm-12 col-md-3 col-lg-2 card text-light p-2 m-1 forecast-card">
+                  <h4 class="forecast-date"></h4>
+                  <img class="forecast-icon">
+                  <p>Temperature: <span class="forecast-temp"></span></p>
+                  <p>Wind: <span class="forecast-wind"></span></p>
+                  <p>Humidity: <span class="forecast-humidity"></span></p>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-
-    </div>
-    <div>
-        <div class="row-12">
-            <h2>5-Day Forecast</h2>
-        </div>
-    </div>
+      </div>
 
 
     
