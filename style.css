@@ -1,0 +1,125 @@
+
+body {
+	background: #2db8d7;
+}
+
+a,
+a:hover,
+a:visited {
+	color: white;
+	text-decoration: none;
+}
+
+.custom-jumbotron {
+	background-image: linear-gradient(to right, #0e1b31, #2d2538);
+}
+
+.weather-container {
+	min-height: 85%;
+}
+
+/* MAIN CARD */
+
+#main-card,
+.forecast-card,
+.search-card {
+	box-shadow: 3px 3px 15px #a7e956;
+}
+
+#main-card {
+	/* background-color: #77756d; */
+	background-image: linear-gradient(to left, #eecd48, #8a8881);
+	font-size: 125%;
+	transition: transform 0.2s;
+}
+
+
+
+#city-card {
+	font-weight: bold;
+}
+
+#icon-card {
+	width: 60%;
+}
+
+.main-text {
+	font-size: 120%;
+}
+
+/* SEARCH CARD */
+.search-card {
+	background-color: rgb(65, 234, 144);
+}
+
+/* FORECAST CARDS */
+
+.forecast-card {
+	background-image: linear-gradient(160deg, #0e1b31, #8335f0);
+	width: 250px;
+	opacity: 1;
+	transition: opacity 0.2s, transform 0.2s;
+}
+
+.forecast-card:hover {
+	opacity: 0.9;
+	transform: scale(1.03);
+}
+
+.forecast-card img {
+	margin: 0 auto;
+}
+
+.forecast-date {
+	text-align: center;
+	font-size: 150%;
+}
+
+.forecast-temp,
+.forecast-wind,
+.forecast-humidity {
+	margin-left: 15px;
+	text-align: center;
+	font-size: 125%;
+}
+
+/* UV INDEX */
+
+.favorable,
+.moderate,
+.severe {
+	font-weight: bold;
+	text-align: center;
+	width: 100px;
+	padding: 5px 10px;
+	border-radius: 8px;
+}
+
+.favorable {
+	background-color: #299501;
+}
+
+.moderate {
+	background-color: #cea009;
+}
+
+.severe {
+	background: #bd0713;
+}
+
+footer {
+	text-align: center;
+	background-image: linear-gradient(to right, #0e1b31, #2d2538);
+	justify-content: center;
+	width: 100%;
+	padding: 12px;
+}
+
+footer img {
+	width: 50px;
+	transition: transform 1s;
+}
+
+footer img:hover {
+	transform: rotate(360deg);
+}
