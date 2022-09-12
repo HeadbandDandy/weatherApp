@@ -82,6 +82,34 @@ getWeather = (weatherData) => {
 };
 
 
+//function below renders weather and places them in their cards
+renderCurrentWeather = (coordinatesData, openWeatherData) => {
+	// sets card content
+	cityCard.textContent = coordinatesData[0].name;
+	iconCard.src = `http://openweathermap.org/img/wn/${openWeatherData.current.weather[0].icon}@2x.png`;
+	tempCard.textContent = `${Math.trunc(
+		openWeatherData.current.temp
+	)}\xB0F`;
+	windCard.textContent = `${openWeatherData.current.wind_speed} mph`;
+	humidityCard.textContent = `${openWeatherData.current.humidity}%`;
+	uvCard.textContent = Math.trunc(openWeatherData.current.uvi);
+
+	// clears previous classes
+	uvCard.parentElement.classList.remove('favorable');
+	uvCard.parentElement.classList.remove('moderate');
+	uvCard.parentElement.classList.remove('severe');
+
+	// adds class based on uv index
+	if (uvCard.textContent <= 2) {
+		uvCard.parentElement.classList.add('favorable');
+	} else if (uvCard.textContent <= 7) {
+		uvCard.parentElement.classList.add('moderate');
+	} else {
+		uvCard.parentElement.classList.add('severe');
+	}
+};
+
+
 
 
 
