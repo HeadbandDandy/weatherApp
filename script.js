@@ -32,3 +32,21 @@ let defaultCards = [
     'Chicago',
     'Dallas'
 ]
+
+//below contains the time/date function from moment
+let today = moment().format('M/DD/YYYY')
+
+
+//function needed to get coordinates
+
+
+
+
+
+
+// Below sets the local storage
+let searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
+
+let cityName;
+
+
