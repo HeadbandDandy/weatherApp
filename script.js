@@ -1,8 +1,9 @@
 // below contains API Key and URL 
 //end point added
 const apiKey = '60324a49ed03a3780c2ddec7ca142174';
-const apiUrl = 'https://api.openweathermap.org';
+const apiUrl = 'api.openweathermap.org/data/2.5/forecast?q={city name}&appid={60324a49ed03a3780c2ddec7ca142174}';
 let endpoint = '/data/2.5/onecall?';
+
 
 
 
@@ -121,7 +122,7 @@ renderCurrentWeather = (coordinatesData, openWeatherData) => {
 //function below should render upcoming forecast cards
 renderForecast = (openWeatherData) => {
 	for (let i = 0; i < castCard.length; i++) {
-		// sets forecast card content
+		// below is a moment method being used to cast data
 		castDate[i].textContent = moment()
 			.add(i + 1, 'days')
 			.format('M/DD/YYYY');
@@ -141,9 +142,77 @@ renderForecast = (openWeatherData) => {
 };
 
 
+// below adds data to search history
+appendToSearchHistory = (weatherData) => {
+	let city = weatherData[0].name;
+	let searchArray = JSON.parse(localStorage.getItem('searchHistory'));
+
+  // monitors multiple searches with same city name
+	if (!searchArray.includes(city)) {
+		searchArray.unshift(city);
+		searchArray.pop();
+		localStorage.setItem('searchHistory', JSON.stringify(searchArray));
+		searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
+	}
+	renderSearchHistory();
+};
+
+
+//below should render search history to the user
+
+renderSearchHistory = () => {
+	searchButton.textContent = '';
+
+	if (searchHistory === undefined || searchHistory === null) {
+		localStorage.setItem('searchHistory', JSON.stringify(defaultCards));
+	}
+
+	searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
+	cityName = searchHistory[0];
+
+	// adds a button upon entry
+	for (let i = 0; i < searchHistory.length; i++) {
+		let button = document.createElement('button');
+		button.textContent = searchHistory[i];
+
+		button.classList.add('btn');
+		button.classList.add('btn-secondary');
+		button.classList.add('btn-block');
+		button.classList.add('mb-2');
+		button.classList.add('searched-cities-btn');
+		button.addEventListener('click', function (event) {
+			cityName = event.target.textContent;
+			getCoordinates();
+		});
+		searchButton.appendChild(button);
+	}
+};
 
 
 
+
+searchButton.addEventListener('click', function (event) {
+	event.preventDefault();
+
+	cityName = searchInput.value.toLowerCase().trim();
+	getCoordinates();
+
+	searchInput.value = '';
+});
+
+
+
+//initializes the application
+init = () => {
+	dateCard.textContent = `${today}`;
+	renderSearchHistory();
+	getCoordinates();
+};
+
+init();
+
+
+console.log(moment().format('M/DD/YYYY'))
 
 
 

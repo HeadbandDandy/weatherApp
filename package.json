@@ -1,0 +1,22 @@
+{
+  "name": "weatherapp",
+  "version": "1.0.0",
+  "description": "This repository contains a weather application using the Open Weather One Call API",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HeadbandDandy/weatherApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HeadbandDandy/weatherApp/issues"
+  },
+  "homepage": "https://github.com/HeadbandDandy/weatherApp#readme",
+  "dependencies": {
+    "moment": "^2.29.4"
+  }
+}
