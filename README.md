@@ -36,9 +36,11 @@ One Call Weather Api
 
 #### Mock-up
 
+<img width="1416" alt="Screen Shot 2022-09-13 at 5 34 02 PM" src="https://user-images.githubusercontent.com/106439402/190013518-24c94f4e-3b15-403e-a813-3a9ff96e4f27.png">
+<img width="1416" alt="Screen Shot 2022-09-13 at 5 33 40 PM" src="https://user-images.githubusercontent.com/106439402/190013526-f3143077-425e-4899-8593-3c7ec01ce99d.png">
 
 
 
 
 ### Live URL
-
+https://headbanddandy.github.io/weatherApp/
