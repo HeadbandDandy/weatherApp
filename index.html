@@ -1,155 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-   
-  <link rel="icon"
-  href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☀️</text></svg>">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-  integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-    <link rel="stylesheet" href="./style.css">
-    <script src="https://kit.fontawesome.com/dc9cf7576e.js" crossorigin="anonymous"></script>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WeatherApp</title>
 
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☀️</text></svg>">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+  <link rel="stylesheet" href="./style.css">
+  <title>WeatherApp</title>
 </head>
-<body>
-    <header class="jumbotron jumbotron-fluid custom-jumbotron text-light">
-        <div class="container-fluid text-center">
-          <h1 class="display-4">Weather Watch</h1>
+
+<body class="d-flex flex-column vh-100">
+  <header class="jumbotron jumbotron-fluid custom-jumbotron text-light">
+    <div class="container-fluid text-center">
+      <h1 class="display-4">Weather Dashboard</h1>
+      <p class="lead">Use this application to check the whether in any city!</p>
+    </div>
+  </header>
+
+  <div class="container-fluid weather-container">
+    <div class="row">
+
+      <!-- LEFT COLUMN -->
+      <div class="col-12 col-sm-12 col-md-12 col-lg-3">
+        <div id="search-card" class="card px-4 py-4 bg-dark text-light">
+          <h2>Search for a City:</h2>
+
+          <!-- CITY SEARCH FORM -->
+          <form class="border-bottom mb-2">
+            <input type="text" class="form-control mb-2" id="city-search" placeholder="Enter a City" autocomplete="off">
+            <button class="btn btn-primary btn-block mb-2" id="city-search-btn">Search</button>
+          </form>
+
+          <!-- SEARCH HISTORY BUTTONS -->
+          <div id="search-buttons"></div>
         </div>
-      </header>
-    
-      <div class="container-fluid weather-container">
-        <div class="row">
-    
-          <!--Below contains search card -->
-          <div class="col-12 col-sm-12 col-md-12 col-lg-3">
-            <div id="search-card" class="card px-4 py-4 bg-dark text-light">
-              <h2>Choose Your City:</h2>
-    
-              <!-- below contain search form-->
-              <form class="border-bottom mb-2">
-                <input type="text" class="form-control mb-2" id="city-search" placeholder="Enter a City" autocomplete="off">
-                <button class="btn btn-primary btn-block mb-2" id="searchBtn">Search</button>
-              </form>
-    
-              <!-- below should contain the section for search-buttons -->
-              <div id="search-badges"></div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="col-12 col-md-12 col-lg-9">
+        <div class="row p-3 m-1">
+          <!-- MAIN CARD -->
+          <div id="main-card" class=" card col-12 text-light p-3">
+            <div class="row">
+              <div class="col-12 col-lg-4 text-center p-4">
+                <h2><span id="main-card-city"></span> <span id="main-card-date"></span></h2>
+                <img id="main-card-icon">
+              </div>
+              <div class="col-12 col-lg-8 d-flex align-items-center justify-content-between">
+
+                <div class="container">
+                  <div class="row d-flex justify-content-around">
+                    <div class="main-text col-12 col-lg-2 text-center border rounded m-2 p-2">
+                      <p>Temp:</p>
+                      <span id="main-card-temp"></span>
+                    </div>
+                    <div class="main-text col-12 col-lg-2 text-center border rounded m-2 p-2">
+                      <p>Wind:</p>
+                      <span id="main-card-wind"></span>
+                    </div>
+                    <div class="main-text col-12 col-lg-2 text-center border rounded m-2 p-2">
+                      <p>Humidity:</p>
+                      <span id="main-card-humidity"></span>
+                    </div>
+                    <div class="main-text col-12 col-lg-2 align-self-center">
+                      <a href="https://www.epa.gov/sunsafety/uv-index-scale-0" target="_blank">
+                        <p>UVI: <span id="main-card-uv"></span></p>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
             </div>
           </div>
-    
-          
-          <div class="col-12 col-md-12 col-lg-9">
-            <div class="row p-3 m-1">
-              <!-- below contains section displaying temp, weather, humidity, wind, & UV -->
-              <div id="main-card" class=" card col-12 text-light p-3">
-                <div class="row">
-                  <div class="col-12 col-lg-4 text-center p-4">
-                    <h2><span id="city-card"></span> <span id="date-card"></span></h2>
-                    <img id="icon-card">
-                  </div>
-                  <div class="col-12 col-lg-8 d-flex align-items-center justify-content-between">
-    
-                    <div class="container">
-                      <div class="row d-flex justify-content-around">
-                        <div class="main-text col-12 col-lg-2 text-center border rounded m-2 p-2">
-                          <p>Temp:</p>
-                          <span id="temp-card"></span>
-                        </div>
-                        <div class="main-text col-12 col-lg-2 text-center border rounded m-2 p-2">
-                          <p>Wind:</p>
-                          <span id="wind-card"></span>
-                        </div>
-                        <div class="main-text col-12 col-lg-2 text-center border rounded m-2 p-2">
-                          <p>Humidity:</p>
-                          <span id="humidity-card"></span>
-                        </div>
-                        <div class="main-text col-12 col-lg-2 align-self-center">
-                          <a href="https://www.epa.gov/sunsafety/uv-index-scale-0" rel="noopener" target="_blank">
-                            <p>UVI: <span id="uv-card"></span></p>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-    
-                  </div>
-                </div>
-              </div>
+        </div>
+        <!-- 5-DAY FORECAST -->
+
+        <div class="container col-12 d-flex">
+          <div class="row d-flex justify-content-around m-1">
+            <h3 class="col-12">5-Day Forecast</h3>
+            <!-- DAY 1 -->
+            <div class="col-12 col-sm-12 col-md-3 col-lg-2 card text-light p-2 m-1 forecast-card">
+              <h4 class="forecast-date"></h4>
+              <img class="forecast-icon">
+              <p>Temp: <span class="forecast-temp"></span></p>
+              <p>Wind: <span class="forecast-wind"></span></p>
+              <p>Humidity: <span class="forecast-humidity"></span></p>
             </div>
-            <!-- Forecast Cards displayed below -->
-    
-            <div class="container col-12 d-flex">
-              <div class="row d-flex justify-content-around m-1">
-                <h3 class="col-12">Next 5-Days! </h3>
-                <!-- DAY 1 -->
-                <div class="col-12 col-sm-12 col-md-3 col-lg-2 card text-light p-2 m-1 forecast-card">
-                  <h4 class="forecast-date"></h4>
-                  <img class="forecast-icon">
-                  <p>Temperature: <span class="forecast-temp"></span></p>
-                  <p>Wind: <span class="forecast-wind"></span></p>
-                  <p>Humidity: <span class="forecast-humidity"></span></p>
-                </div>
-    
-                <!-- DAY 2 -->
-                <div class="col-12 col-sm-12 col-md-3 col-lg-2 card text-light p-2 m-1 forecast-card">
-                  <h4 class="forecast-date"></h4>
-                  <img class="forecast-icon">
-                  <p>Temperature: <span class="forecast-temp"></span></p>
-                  <p>Wind: <span class="forecast-wind"></span></p>
-                  <p>Humidity: <span class="forecast-humidity"></span></p>
-                </div>
-    
-                <!-- DAY 3 -->
-                <div class="col-12 col-sm-12 col-md-3 col-lg-2 card text-light p-2 m-1 forecast-card">
-                  <h4 class="forecast-date"></h4>
-                  <img class="forecast-icon">
-                  <p>Temperature: <span class="forecast-temp"></span></p>
-                  <p>Wind: <span class="forecast-wind"></span></p>
-                  <p>Humidity: <span class="forecast-humidity"></span></p>
-                </div>
-    
-                <!-- DAY 4 -->
-                <div class="col-12 col-sm-12 col-md-3 col-lg-2 card text-light p-2 m-1 forecast-card">
-                  <h4 class="forecast-date"></h4>
-                  <img class="forecast-icon">
-                  <p>Temperature: <span class="forecast-temp"></span></p>
-                  <p>Wind: <span class="forecast-wind"></span></p>
-                  <p>Humidity: <span class="forecast-humidity"></span></p>
-                </div>
-    
-                <!-- DAY 5 -->
-                <div class="col-12 col-sm-12 col-md-3 col-lg-2 card text-light p-2 m-1 forecast-card">
-                  <h4 class="forecast-date"></h4>
-                  <img class="forecast-icon">
-                  <p>Temperature: <span class="forecast-temp"></span></p>
-                  <p>Wind: <span class="forecast-wind"></span></p>
-                  <p>Humidity: <span class="forecast-humidity"></span></p>
-                </div>
-              </div>
+
+            <!-- DAY 2 -->
+            <div class="col-12 col-sm-12 col-md-3 col-lg-2 card text-light p-2 m-1 forecast-card">
+              <h4 class="forecast-date"></h4>
+              <img class="forecast-icon">
+              <p>Temp: <span class="forecast-temp"></span></p>
+              <p>Wind: <span class="forecast-wind"></span></p>
+              <p>Humidity: <span class="forecast-humidity"></span></p>
+            </div>
+
+            <!-- DAY 3 -->
+            <div class="col-12 col-sm-12 col-md-3 col-lg-2 card text-light p-2 m-1 forecast-card">
+              <h4 class="forecast-date"></h4>
+              <img class="forecast-icon">
+              <p>Temp: <span class="forecast-temp"></span></p>
+              <p>Wind: <span class="forecast-wind"></span></p>
+              <p>Humidity: <span class="forecast-humidity"></span></p>
+            </div>
+
+            <!-- DAY 4 -->
+            <div class="col-12 col-sm-12 col-md-3 col-lg-2 card text-light p-2 m-1 forecast-card">
+              <h4 class="forecast-date"></h4>
+              <img class="forecast-icon">
+              <p>Temp: <span class="forecast-temp"></span></p>
+              <p>Wind: <span class="forecast-wind"></span></p>
+              <p>Humidity: <span class="forecast-humidity"></span></p>
+            </div>
+
+            <!-- DAY 5 -->
+            <div class="col-12 col-sm-12 col-md-3 col-lg-2 card text-light p-2 m-1 forecast-card">
+              <h4 class="forecast-date"></h4>
+              <img class="forecast-icon">
+              <p>Temp: <span class="forecast-temp"></span></p>
+              <p>Wind: <span class="forecast-wind"></span></p>
+              <p>Humidity: <span class="forecast-humidity"></span></p>
             </div>
           </div>
         </div>
       </div>
-
-
-    
-
+    </div>
+  </div>
 
 
 
 
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
-      integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
-      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-      crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
-      crossorigin="anonymous"></script>
-<script src="./script.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+    integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+    crossorigin="anonymous"></script>
+  <script src="./script.js"></script>
 </body>
+
 </html>

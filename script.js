@@ -1,64 +1,57 @@
 // below contains API Key and URL 
 //end point added
-const apiKey = '60324a49ed03a3780c2ddec7ca142174';
-const apiUrl = 'api.openweathermap.org/data/2.5/forecast?q={city name}&appid={60324a49ed03a3780c2ddec7ca142174}';
-let endpoint = '/data/2.5/onecall?';
+// const apiKey = '60324a49ed03a3780c2ddec7ca142174';
+// const apiUrl = 'api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={60324a49ed03a3780c2ddec7ca142174}';
+// // DOM ELEMENTS
 
-
-
-
-
-// DOM elements
-const searchedBadges = document.querySelector('#search-badges');
-const searchButton = document.querySelector('#searchBtn');
+// user input
+const searchedButtons = document.querySelector('#search-buttons');
+const searchButton = document.querySelector('#city-search-btn');
 const searchInput = document.querySelector('#city-search');
 const searchedCitiesButton = document.querySelectorAll('.searched-cities-btn');
+// main card
+const cityCard = document.querySelector('#main-card-city');
+const dateCard = document.querySelector('#main-card-date');
+const iconCard = document.querySelector('#main-card-icon');
+const tempCard = document.querySelector('#main-card-temp');
+const mainCardWind = document.querySelector('#main-card-wind');
+const mainCardHumidity = document.querySelector('#main-card-humidity');
+const mainCardUv = document.querySelector('#main-card-uv');
+// forecast cards
+const forecastCard = document.querySelectorAll('.forecast-card');
+const forecastCardDate = document.querySelectorAll('.forecast-date');
+const forecastCardIcon = document.querySelectorAll('.forecast-icon');
+const forecastCardTemp = document.querySelectorAll('.forecast-temp');
+const forecastCardWind = document.querySelectorAll('.forecast-wind');
+const forecastCardHumidity = document.querySelectorAll('.forecast-humidity');
 
-// below contains elements for main weather card
-const cityCard = document.querySelector('#city-card');
-const dateCard = document.querySelector('#date-card');
-const iconCard = document.querySelector('#icon-card');
-const tempCard = document.querySelector('#temp-card');
-const windCard = document.querySelector('#wind-card');
-const humidityCard = document.querySelector('#humidity-card');
-const uvCard = document.querySelector('#uv-card');
+// GLOBAL VARIABLES
 
-//below contains the cards for the upcoming forecasts
-const castCard = document.querySelectorAll('.forecast-card');
-const castDate = document.querySelectorAll('.forecast-date');
-const castIcon = document.querySelectorAll('.forecast-icon');
-const castTemp = document.querySelectorAll('.forecast-temp');
-const castWind = document.querySelectorAll('.forecast-wind');
-const castHumidity = document.querySelectorAll('.forecast-humidity');
+let apiUrl = 'https://api.openweathermap.org';
+let apiKey = '&appid=60324a49ed03a3780c2ddec7ca142174';
+let oneCallEndpoint = '/data/2.5/onecall?';
+let defaultSearch = [
+	'New York',
+	'Chicago',
+	'Austin',
+	'Miami',
+	'Atlanta',
+	'Dallas',
+];
+let today = moment().format('M/DD/YYYY');
 
-
-//below contains default search cards
-let defaultCards = [
-    'Miami',
-    'New York',
-    'Los Angeles',
-    'Atlanta',
-    'Chicago',
-    'Dallas'
-]
-
-//below contains the time/date function from moment
-let today = moment().format('M/DD/YYYY')
-
-// Below sets the local storage
-//local storage should be set before other functions 
+// LOCAL STORAGE
 let searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
 
 let cityName;
 
+// FUNCTIONS
 
-//function needed to get coordinates
-
-getCoordinates = () => {
+fetchCoordinates = () => {
 	let geocodingEndpoint = '/geo/1.0/direct?';
 	let apiParam = `q=${cityName}`;
 
-	// pulls location from geocode
+	// calls for the coordinates from the geocode api
 	fetch(`${apiUrl}${geocodingEndpoint}${apiParam}${apiKey}`)
 		.then(function (response) {
 			return response.json();
@@ -71,14 +64,13 @@ getCoordinates = () => {
 		});
 };
 
-
-getWeather = (weatherData) => {
+fetchWeather = (weatherData) => {
 	let latParam = weatherData[0].lat;
 	let lonParam = weatherData[0].lon;
 
-	// pulls weather based on coordinates function above
+	// calls for weather information with collected lat and lon coordinates
 	fetch(
-		`${weatherApiUrl}${oneCallEndpoint}lat=${latParam}&lon=${lonParam}&units=imperial${weatherApiKey}`
+		`${apiUrl}${oneCallEndpoint}lat=${latParam}&lon=${lonParam}&units=imperial${apiKey}`
 	)
 		.then(function (response) {
 			return response.json();
@@ -90,8 +82,6 @@ getWeather = (weatherData) => {
 		});
 };
 
-
-//function below renders weather and places them in their cards
 renderCurrentWeather = (coordinatesData, openWeatherData) => {
 	// sets card content
 	cityCard.textContent = coordinatesData[0].name;
@@ -99,55 +89,51 @@ renderCurrentWeather = (coordinatesData, openWeatherData) => {
 	tempCard.textContent = `${Math.trunc(
 		openWeatherData.current.temp
 	)}\xB0F`;
-	windCard.textContent = `${openWeatherData.current.wind_speed} mph`;
-	humidityCard.textContent = `${openWeatherData.current.humidity}%`;
-	uvCard.textContent = Math.trunc(openWeatherData.current.uvi);
+	mainCardWind.textContent = `${openWeatherData.current.wind_speed} mph`;
+	mainCardHumidity.textContent = `${openWeatherData.current.humidity}%`;
+	mainCardUv.textContent = Math.trunc(openWeatherData.current.uvi);
 
 	// clears previous classes
-	uvCard.parentElement.classList.remove('favorable');
-	uvCard.parentElement.classList.remove('moderate');
-	uvCard.parentElement.classList.remove('severe');
+	mainCardUv.parentElement.classList.remove('favorable');
+	mainCardUv.parentElement.classList.remove('moderate');
+	mainCardUv.parentElement.classList.remove('severe');
 
 	// adds class based on uv index
-	if (uvCard.textContent <= 2) {
-		uvCard.parentElement.classList.add('favorable');
-	} else if (uvCard.textContent <= 7) {
-		uvCard.parentElement.classList.add('moderate');
+	if (mainCardUv.textContent <= 2) {
+		mainCardUv.parentElement.classList.add('favorable');
+	} else if (mainCardUv.textContent <= 7) {
+		mainCardUv.parentElement.classList.add('moderate');
 	} else {
-		uvCard.parentElement.classList.add('severe');
+		mainCardUv.parentElement.classList.add('severe');
 	}
 };
 
-
-//function below should render upcoming forecast cards
 renderForecast = (openWeatherData) => {
-	for (let i = 0; i < castCard.length; i++) {
-		// below is a moment method being used to cast data
-		castDate[i].textContent = moment()
+	for (let i = 0; i < forecastCard.length; i++) {
+		// sets forecast card content
+		forecastCardDate[i].textContent = moment()
 			.add(i + 1, 'days')
 			.format('M/DD/YYYY');
-		castIcon[
+		forecastCardIcon[
 			i
 		].src = `http://openweathermap.org/img/wn/${openWeatherData.daily[i].weather[0].icon}@2x.png`;
-		castTemp[i].textContent = `${Math.trunc(
+		forecastCardTemp[i].textContent = `${Math.trunc(
 			openWeatherData.daily[i].temp.day
 		)}\xB0F`;
-		castWind[
+		forecastCardWind[
 			i
 		].textContent = `${openWeatherData.daily[i].wind_speed} mph`;
-		castHumidity[
+		forecastCardHumidity[
 			i
 		].textContent = `${openWeatherData.daily[i].humidity}%`;
 	}
 };
 
-
-// below adds data to search history
 appendToSearchHistory = (weatherData) => {
 	let city = weatherData[0].name;
 	let searchArray = JSON.parse(localStorage.getItem('searchHistory'));
 
-  // monitors multiple searches with same city name
+	// checks to see if the city is already in search history
 	if (!searchArray.includes(city)) {
 		searchArray.unshift(city);
 		searchArray.pop();
@@ -157,20 +143,17 @@ appendToSearchHistory = (weatherData) => {
 	renderSearchHistory();
 };
 
-
-//below should render search history to the user
-
 renderSearchHistory = () => {
-	searchButton.textContent = '';
+	searchedButtons.textContent = '';
 
 	if (searchHistory === undefined || searchHistory === null) {
-		localStorage.setItem('searchHistory', JSON.stringify(defaultCards));
+		localStorage.setItem('searchHistory', JSON.stringify(defaultSearch));
 	}
 
 	searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
 	cityName = searchHistory[0];
 
-	// adds a button upon entry
+	// creates a button for each entry
 	for (let i = 0; i < searchHistory.length; i++) {
 		let button = document.createElement('button');
 		button.textContent = searchHistory[i];
@@ -182,37 +165,31 @@ renderSearchHistory = () => {
 		button.classList.add('searched-cities-btn');
 		button.addEventListener('click', function (event) {
 			cityName = event.target.textContent;
-			getCoordinates();
+			fetchCoordinates();
 		});
-		searchButton.appendChild(button);
+		searchedButtons.appendChild(button);
 	}
 };
 
-
-
-
+// EVENT LISTENERS
 searchButton.addEventListener('click', function (event) {
 	event.preventDefault();
 
 	cityName = searchInput.value.toLowerCase().trim();
-	getCoordinates();
+	fetchCoordinates();
 
 	searchInput.value = '';
 });
 
+// INIT
 
-
-//initializes the application
 init = () => {
 	dateCard.textContent = `${today}`;
 	renderSearchHistory();
-	getCoordinates();
+	fetchCoordinates();
 };
 
 init();
-
-
-console.log(moment().format('M/DD/YYYY'))
 
 
 

@@ -1,6 +1,7 @@
 
 body {
-	background: #2db8d7;
+	background: rgb(206, 240, 85);
+    font-family:monospace
 }
 
 a,
@@ -11,7 +12,7 @@ a:visited {
 }
 
 .custom-jumbotron {
-	background-image: linear-gradient(to right, #0e1b31, #2d2538);
+	background-image: linear-gradient(to right, rgb(64, 1, 64), #2d2538);
 }
 
 .weather-container {
