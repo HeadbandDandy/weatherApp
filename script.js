@@ -22,6 +22,14 @@ const windCard = document.querySelector('#wind-card');
 const humidityCard = document.querySelector('#humidity-card');
 const uvCard = document.querySelector('#uv-card');
 
+//below contains the cards for the upcoming forecasts
+const castCard = document.querySelectorAll('.forecast-card');
+const castDate = document.querySelectorAll('.forecast-date');
+const castIcon = document.querySelectorAll('.forecast-icon');
+const castTemp = document.querySelectorAll('.forecast-temp');
+const castWind = document.querySelectorAll('.forecast-wind');
+const castHumidity = document.querySelectorAll('.forecast-humidity');
+
 
 //below contains default search cards
 let defaultCards = [
@@ -106,6 +114,29 @@ renderCurrentWeather = (coordinatesData, openWeatherData) => {
 		uvCard.parentElement.classList.add('moderate');
 	} else {
 		uvCard.parentElement.classList.add('severe');
+	}
+};
+
+
+//function below should render upcoming forecast cards
+renderForecast = (openWeatherData) => {
+	for (let i = 0; i < castCard.length; i++) {
+		// sets forecast card content
+		castDate[i].textContent = moment()
+			.add(i + 1, 'days')
+			.format('M/DD/YYYY');
+		castIcon[
+			i
+		].src = `http://openweathermap.org/img/wn/${openWeatherData.daily[i].weather[0].icon}@2x.png`;
+		castTemp[i].textContent = `${Math.trunc(
+			openWeatherData.daily[i].temp.day
+		)}\xB0F`;
+		castWind[
+			i
+		].textContent = `${openWeatherData.daily[i].wind_speed} mph`;
+		castHumidity[
+			i
+		].textContent = `${openWeatherData.daily[i].humidity}%`;
 	}
 };
 
